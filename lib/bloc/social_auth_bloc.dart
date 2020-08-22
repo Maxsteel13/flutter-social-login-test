@@ -1,12 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:social_login_test/bloc/instagram_auth_bloc.dart';
+import 'package:social_login_test/bloc/twitter_auth_bloc.dart';
 import 'package:social_login_test/services/auth_service.dart';
+import 'package:social_login_test/services/instagram_auth_service.dart';
 
 class SocialAuthBloc {
   final _authService = FirebaseAuthService();
   final fbLogin = FacebookLogin();
   final googleLogin = GoogleSignIn();
+  final instagramLogin = InstagramAuthService();
+  final twitterAuthBloc = TwitterAuthBloc();
+  final instagramAuthBloc = InstagramAuthBloc();
 
   Stream<FirebaseUser> get currentUser => _authService.currentUser;
 
@@ -66,6 +73,32 @@ class SocialAuthBloc {
       print(
           "Firebase login failed hasToken: $hasToken, isValidUser: $isValidUser");
     }
+  }
+
+  signInWithTwitter(BuildContext context) async {
+    final tokenCredentialsResponse = await twitterAuthBloc.signIn(context);
+
+    if (tokenCredentialsResponse.credentials != null) {
+      final credential = TwitterAuthProvider.getCredential(
+        authToken: tokenCredentialsResponse.credentials.token,
+        authTokenSecret: tokenCredentialsResponse.credentials.tokenSecret,
+      );
+
+      await signInToFirebase(credential);
+      Navigator.pop(context);
+    }
+  }
+
+  signInToInstagram(BuildContext context) async {
+    final authorizationCode = await instagramAuthBloc.signIn(context);
+
+    final InstagramAuthResult instaResult =
+        await instagramLogin.signIn(authorizationCode);
+    print("SIGNED-IN");
+    final AuthCredential credential = FacebookAuthProvider.getCredential(
+        accessToken: instaResult.accessToken);
+
+    print("FIREBASE BITCH ${instaResult.accessToken}");
   }
 
   signOutGoogle() async {

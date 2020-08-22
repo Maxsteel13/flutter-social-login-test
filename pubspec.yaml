@@ -34,6 +34,9 @@ dependencies:
   flutter_signin_button: ^1.0.0
   flutter_login_facebook: ^0.2.1
   provider: ^4.3.2
+  webview_flutter: ^0.3.22
+  flutter_webview_plugin: ^0.3.11
+  oauth1: ^1.0.4
 
 dev_dependencies:
   flutter_test:
