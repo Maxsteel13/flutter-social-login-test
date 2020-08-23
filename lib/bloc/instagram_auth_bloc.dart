@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:social_login_test/screens/social_login_web_view.dart';
 import 'package:social_login_test/services/instagram_auth_service.dart';
 
@@ -24,8 +23,10 @@ class InstagramAuthBloc {
   }
 
   instaAuthRedirectionHandler(String url, BuildContext context) {
-    if (url.contains(url)) {
-      print('SUCCESS BITCH!');
+    print(
+        "new URL $url ************************************************************************");
+    if (url.startsWith(instaAuthService.redirectUrl)) {
+      print('SUCCESS BITCH! $url');
       var params = url.split("code=");
       var authorizationCode = params[1];
       _authorizationCode =

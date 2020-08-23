@@ -6,8 +6,8 @@ class InstagramAuthService {
   final String redirectUrl =
       'https://test-social-login-52e25.firebaseapp.com/__/insta/auth/handler';
   final String _instaOAuthUrl = 'https://api.instagram.com/oauth';
-  final String _instaApiId = '76077642232727297';
-  final String _instaApiSecret = '7127525c637e8a95907d0f9069166c0ba7';
+  final String _instaApiId = '607764223272729';
+  final String _instaApiSecret = '127525c637e8a95907d0f9069166c0ba';
   String _instaAuthUrl;
   String _instaAccessTokenUrl;
 

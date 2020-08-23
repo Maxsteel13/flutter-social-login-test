@@ -15,9 +15,8 @@ class TwitterAuthService {
   String callbackUrl = 'oob';
 
   // define client credentials (consumer keys)
-  final String apiKey = 'AqU4nrSH57qajKttNnXJaWRybgA';
-  final String apiSecret =
-      'AIE1IYT6q29OC05v5RaF2xBdtRF3IjhfFN9SBaEptACDS6oXBmkA';
+  final String apiKey = 'qU4nrSH57qajKttNnXJaWRybg';
+  final String apiSecret = 'IE1IYT6q29OC05v5RaF2xBdtRF3IjhfFN9SBaEptACDS6oXBmk';
   oauth1.ClientCredentials _clientCredentials;
   oauth1.Authorization _authorization;
 

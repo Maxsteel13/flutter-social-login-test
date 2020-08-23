@@ -18,10 +18,10 @@ class TwitterOtpVerifier extends StatelessWidget {
           children: <Widget>[
             Center(
               child: Text(
-                "Add Task",
+                "Enter Verification code",
                 style: TextStyle(
                   color: Colors.lightBlueAccent,
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.w700,
                 ),
               ),
@@ -29,6 +29,7 @@ class TwitterOtpVerifier extends StatelessWidget {
             TextField(
               autofocus: true,
               textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
               cursorColor: Colors.lightBlueAccent,
               onChanged: (value) {
                 oauthVerifierOtp = value;
@@ -40,7 +41,7 @@ class TwitterOtpVerifier extends StatelessWidget {
             FlatButton(
               color: Colors.lightBlueAccent,
               child: Text(
-                "Add",
+                "Submit",
                 style: TextStyle(
                   color: Colors.white,
                 ),

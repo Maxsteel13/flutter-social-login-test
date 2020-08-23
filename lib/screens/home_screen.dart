@@ -46,6 +46,12 @@ class HomeScreen extends StatelessWidget {
                   Buttons.Twitter,
                   onPressed: () async {
                     await socialLoginBloc.signInWithTwitter(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LandingScreen(),
+                      ),
+                    );
                   },
                 ),
               ],

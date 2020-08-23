@@ -1,6 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
-import 'package:social_login_test/screens/twitter_verifier_otp.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class SocialLoginWebView extends StatefulWidget {
   final Function(String, BuildContext) redirectionUrlHandler;
@@ -17,33 +17,41 @@ class SocialLoginWebView extends StatefulWidget {
 }
 
 class _SocialLoginWebViewState extends State<SocialLoginWebView> {
-  final flutterWebViewPlugin = new FlutterWebviewPlugin();
-
-  @override
-  void initState() {
-    flutterWebViewPlugin.onUrlChanged.listen((String url) {
-      print("CHANGED Url $url");
-      if (widget.redirectionUrlHandler != null) {
-        widget.redirectionUrlHandler(url, context);
-      }
-    });
-
-    super.initState();
-  }
+  final Completer<WebViewController> _controller =
+      Completer<WebViewController>();
 
   @override
   void dispose() {
-    flutterWebViewPlugin.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WebviewScaffold(
-        url: widget.initialUrl,
-        appBar: new AppBar(
-          backgroundColor: Color.fromRGBO(66, 103, 178, 1),
-          title: new Text(widget.title),
-        ));
+    print("INITIAL URL ${widget.initialUrl} *************************");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Builder(
+        builder: (BuildContext context) {
+          return Container(
+            child: WebView(
+              initialUrl: widget.initialUrl,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (WebViewController webViewController) {
+                _controller.complete(webViewController);
+              },
+              onPageStarted: (String url) {
+                print("onPageStarted $url %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+              },
+              onPageFinished: (String url) {
+                print("onPageFinished $url %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+                widget.redirectionUrlHandler(url, context);
+              },
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -78,7 +78,8 @@ class SocialAuthBloc {
   signInWithTwitter(BuildContext context) async {
     final tokenCredentialsResponse = await twitterAuthBloc.signIn(context);
 
-    if (tokenCredentialsResponse.credentials != null) {
+    if (tokenCredentialsResponse != null &&
+        tokenCredentialsResponse.credentials != null) {
       final credential = TwitterAuthProvider.getCredential(
         authToken: tokenCredentialsResponse.credentials.token,
         authTokenSecret: tokenCredentialsResponse.credentials.tokenSecret,
